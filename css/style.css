@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 header {
@@ -22,4 +23,39 @@ header {
 
 .option:hover {
     background-color: red;
+}
+
+div #filePicker {
+    align-self: stretch;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+div #mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+div #content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+div #imageEditor {
+    display: flex;
+    flex-direction: row;
+}
+
+div #imageControls, div #preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    flex-direction: column;
 }
