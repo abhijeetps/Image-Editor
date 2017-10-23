@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="app">
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>
-            ImageEditor
+            Image Editor
         </title>
         <link rel="stylesheet" href="css/style.css">
+        <script src="https://code.angularjs.org/1.6.4/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.6.4/angular-route.min.js"></script>
     </head>
     <body>
         <div id="content ">
-            <header>
-                <div class="option">&#10060;</div>
-                <div class="option">&#128470;</div>
-                <div class="option">&#128469;</div>
+            <header ng-controller="headCtrl">
+                <div class="option" ng-click="close()">&#10005;</div>
+                <div class="option" ng-click="maximize()">&#128470;</div>
+                <div class="option" ng-click="minimize()">&#128469;</div>
             </header>
         </div>
+
+        <script src="script.js"></script>
     </body>
 </html>
