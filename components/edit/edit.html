@@ -5,10 +5,8 @@
     </div>
 
     <div id="imageControls">
-        <div class="effectType">Brightness</div>
-        <div class="effectType">Contrast</div>
-        <div class="effectType">Invert</div>
-        <div class="effectType">Sepia</div>
-        <div class="effectType">Greyscale</div>
+        <div class="effectType" ng-repeat="(effect, props) in effects" ng-click="imageEffect(effect)">
+            {{effect}}
+        </div>
     </div>
 </div>

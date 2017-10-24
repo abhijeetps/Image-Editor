@@ -60,4 +60,19 @@ app.controller('homeCtrl', function($scope, $location, image) {
 
 app.controller('editCtrl', function($scope, image){
     $scope.imagePath = image.getImagePath();
+
+    $scope.effects = {
+        'Brightness': {val: 100, min: 0, max: 200, delim: '%'},
+        'Contrast': {val: 100, min: 0, max: 200, delim: '%'},
+        'Invert': {val: 0, min: 0, max: 100, delim: '%'},
+        'Hue-Rotate': {val: 0, min: 0, max: 360, delim: 'deg'},
+        'Sepia': {val: 0, min: 0, max: 100, delim: '%'},
+        'Greyscale': {val: 0, min: 0, max: 100, delim: '%'},
+        'Saturate': {val: 100, min: 0, max: 200, delim: '%'},
+        'Blur': {val: 0, min: 0, max: 5, delim: 'px'}        
+    };
+
+    $scope.imageEffect = function(effectName) {
+        console.log(effectName);
+    }
 });
