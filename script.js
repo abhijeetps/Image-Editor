@@ -4,12 +4,21 @@ const {remote} = require('electron');
 
 app.service('image', function(){
     var imagePath = "";
+    var imageDimensions = [];
     this.setImagePath = function(path) {
         imagePath = path;
     }
 
     this.getImagePath = function() {
         return imagePath;
+    }
+
+    this.setImageDimensions = function(dimensions){
+        imageDimensions = dimensions;
+    }
+
+    this.getImageDimensions = function(dimensions){
+        return imageDimensions;
     }
 });
 
@@ -50,7 +59,10 @@ app.controller('homeCtrl', function($scope, $location, image) {
         }, function(file){
             if(!!file) {
                 var path = file[0];
-                image.setImagePath(path)
+                image.setImagePath(path);
+                var sizeof = require('image-size'); 
+                var dimensions = sizeof(path);
+                image.setImageDimensions(dimensions);
                 $location.path('/edit');
                 $scope.$apply();
             }
@@ -58,8 +70,14 @@ app.controller('homeCtrl', function($scope, $location, image) {
     };
 });
 
-app.controller('editCtrl', function($scope, image){
+app.controller('editCtrl', function($scope, image, $location){
     $scope.imagePath = image.getImagePath();
+
+    $scope.controlsActive = false;
+
+    var imageReference = document.getElementById('mainImage');
+
+    var generatedStyles = "";
 
     $scope.effects = {
         'Brightness': {val: 100, min: 0, max: 200, delim: '%'},
@@ -67,12 +85,70 @@ app.controller('editCtrl', function($scope, image){
         'Invert': {val: 0, min: 0, max: 100, delim: '%'},
         'Hue-Rotate': {val: 0, min: 0, max: 360, delim: 'deg'},
         'Sepia': {val: 0, min: 0, max: 100, delim: '%'},
-        'Greyscale': {val: 0, min: 0, max: 100, delim: '%'},
+        'Grayscale': {val: 0, min: 0, max: 100, delim: '%'},
         'Saturate': {val: 100, min: 0, max: 200, delim: '%'},
         'Blur': {val: 0, min: 0, max: 5, delim: 'px'}        
     };
 
     $scope.imageEffect = function(effectName) {
-        console.log(effectName);
+        $scope.controlsActive = true;
+        $scope.activeEffect = effectName;
+    }
+
+    $scope.setEffect = function(){
+        generatedStyles = "";
+        for(let i in $scope.effects) {
+            generatedStyles += `${i}(${$scope.effects[i].val + $scope.effects[i].delim}) `;
+        }
+        imageReference.style.filter = generatedStyles;
+    }
+
+    $scope.hideThis = function() {
+        $scope.controlsActive = false;
+    };
+
+    $scope.change = function() {
+        $location.path('/');
+    }
+
+    $scope.save = function() {
+        const {BrowserWindow} = remote;
+        var imageDimensions = image.getImageDimensions();
+        let src = image.getImagePath();
+        let style = imageReference.style.filter;
+
+        let win = new BrowserWindow({
+            frame: false,
+            show: false,
+            width: imageDimensions.width,
+            height: imageDimensions.height,
+            webPreferences: {
+                webSecurity: false
+            } 
+        });
+        win.loadURL(
+            `data:text/html, 
+                <style>
+                * {
+                    margin: 0;
+                    padding 0;
+                }
+                </style>
+
+                <img src="${src}" style="filter: ${style}">
+
+                <script>
+                    var screenshot = require('electron-screenshot');
+                    screenshot({
+                        filename: 'untitled.jpg',
+                        delay: 1000
+                    });
+                    
+                    
+
+                </script>
+
+            `
+        );
     }
 });
