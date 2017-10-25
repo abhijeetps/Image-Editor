@@ -42,7 +42,7 @@ The project is open source. You can contribute and open pull requests to improve
 
 ## Authors
 
-* **Abhijeet Singh** - *Initial work* - [aps120797](https://github.com/aps120797)
+* **Abhijeet Singh** - [aps120797](https://github.com/aps120797)
 
 ## License
 
