@@ -30,7 +30,17 @@ in your terminal to install dependencies required for the application.
 
 * [Electron](https://electron.atom.io/) - The framework used
 * [Node.js](https://nodejs.org/en/) - Cross Platform JavaScript run-time environment
-* [npm](https://www.npmjs.com/) - Package Manager
+* [npm](https://www.npmjs.com/) - Package Managerioahfoiaweofiawefiaf
+aoieghawiogoarg
+
+aoighoirhg
+
+oargoihrgioher
+
+oaihrgoishrgoirg
+iohawoefhawoief
+
+oiahoiaoiarg
 
 ## Contributing
 
